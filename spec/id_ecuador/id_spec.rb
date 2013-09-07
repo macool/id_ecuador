@@ -71,7 +71,11 @@ describe IdEcuador::Id do
       #   0..5 -> personas naturales
       it "debería decir que es una persona natural" do
         id = IdEcuador::Id.new "1104680135"
-        id.tipo_id.should eq("Persona natural")
+        id.tipo_id.should eq("Cédula Persona natural")
+      end
+      it "debería decir que es el RUC de una persona natural" do
+        id = IdEcuador::Id.new "1104680135001"
+        id.tipo_id.should eq("RUC Persona natural")
       end
       it "debería decir que es una sociedad pública" do
         id = IdEcuador::Id.new "1164680130001"

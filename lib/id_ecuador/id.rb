@@ -3,7 +3,7 @@
 module IdEcuador
   class Id
     
-    attr_reader :errors, :tipo_id, :result
+    attr_reader :errors, :tipo_id
     
     def initialize(id, options={})
       @id = id.to_s
@@ -58,7 +58,11 @@ module IdEcuador
         @errors << "Tercer dígito es inválido"
         return false
       elsif @third_digit < 6
-        @tipo_id = "Persona natural"
+        if @id.length > 10
+          @tipo_id = "RUC Persona natural"
+        else
+          @tipo_id = "Cédula Persona natural"
+        end
         validate_last_digits_for_persona_natural and evaluate_sums_for_persona_natural!
       elsif @third_digit == 6
         @tipo_id = "Sociedad pública"
