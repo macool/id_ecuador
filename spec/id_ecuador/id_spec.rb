@@ -46,6 +46,10 @@ describe IdEcuador::Id do
         id = IdEcuador::Id.new "2304680135"
         id.errors.should include("Código de provincia incorrecto")
       end
+      it "debería decir que el código de la provincia es 11" do
+        id = IdEcuador::Id.new "1104680135"
+        id.codigo_provincia.should eq(11)
+      end
     end
   
     describe "tercer dígito" do

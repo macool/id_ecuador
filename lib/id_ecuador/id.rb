@@ -3,12 +3,11 @@
 module IdEcuador
   class Id
     
-    attr_reader :errors, :tipo_id
+    attr_reader :errors, :tipo_id, :codigo_provincia
     
     def initialize(id, options={})
       @id = id.to_s
       @errors = []
-      @result = {}
       
       defaults = {
         auto_validate: true
@@ -44,7 +43,7 @@ module IdEcuador
         @errors << "Código de provincia incorrecto"
         false
       else
-        @result[:codigo_provincia] = code
+        @codigo_provincia = code
         true
       end
     end
