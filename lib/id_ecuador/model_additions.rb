@@ -1,9 +1,21 @@
 # encoding: utf-8
 
 module IdEcuador
+  # Módulo que agrega funcionalidad a los modelos de Rails
+  # Permite llamar a <tt>validates_id</tt> dentro de un modelo de Rails
   module ModelAdditions
+
+    # @param [Symbol] attribute atributo que va a validar IdEcuador::Id
+    # @param [Hash] options opciones para la validación
+    # @option options [Boolean] :allow_blank no poner errores si el atributo no está puesto
+    # @option options [String] :message mensaje de error que se va a poner en el atributo
+    # @option options [Array] :only tipos de ID que se va a permitir
+    # options for :only
+    # - :cedula
+    # - :ruc
+    # - :sociedad_publica
+    # - :sociedad_privada
     def validates_id(attribute, options={})
-      # options for only: [:cedula, :ruc, :sociedad_publica, :sociedad_privada]
       defaults = {
         allow_blank: true,
         message: nil,
@@ -15,6 +27,8 @@ module IdEcuador
       unless options[:only].class == Array
         options[:only] = [options[:only]]
       end
+
+
       # poner métodos:
 
       # getter del atributo que siempre retorna una instancia de IdEcuador::Id y se encarga de hacer cache basado en el valor del atributo
