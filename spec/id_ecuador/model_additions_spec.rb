@@ -65,15 +65,67 @@ describe IdEcuador::ModelAdditions do
   end
 
   describe "with options" do
-    describe "allow_blank" do
-      
-      class User < SuperModel::Base
+    describe "don't allow_blank" do
+      class UserWithOptionsAllowBlank < SuperModel::Base
         extend IdEcuador::ModelAdditions
-        validates_id :identificacion, allow_blank: true
+        validates_id :identificacion, allow_blank: false
       end
 
+      it "should say record is invalid as identificacion is blank" do
+        user = UserWithOptionsAllowBlank.new identificacion: nil
+        user.valid?.should be_false
+        user.errors[:identificacion].should include("No puede quedar en blanco")
+      end
+    end
+    describe "specify message" do
+      class UserWithOptionsMessage < SuperModel::Base
+        extend IdEcuador::ModelAdditions
+        validates_id :identificacion, allow_blank: false, message: "Not valid!"
+      end
 
+      it "debería mostrar 'Not valid!' como error con identificacion nil" do
+        user = UserWithOptionsMessage.new identificacion: nil
+        user.valid?.should be_false
+        user.errors[:identificacion].should eq(["Not valid!"])
+      end
+      it "debería mostrar 'Not valid!' como error con cédula" do
+        user = UserWithOptionsMessage.new identificacion: "1104680134"
+        user.valid?.should be_false
+        user.errors[:identificacion].should eq(["Not valid!"])
+      end
+    end
+    describe "specify only options" do
+      describe "con cédula" do
+        class UserWithOptionsOnlyCedula < SuperModel::Base
+          extend IdEcuador::ModelAdditions
+          validates_id :identificacion, only: :cedula
+        end
 
+        it "debería decir que es válido" do
+          user = UserWithOptionsOnlyCedula.new identificacion: "1104680135"
+          user.valid?.should be_true
+        end
+        it "debería decir que es inválido" do
+          user = UserWithOptionsOnlyCedula.new identificacion: "1104680135001"
+          user.valid?.should be_false
+          user.errors[:identificacion].should include("Tipo de identificación no permitido")
+        end
+      end
+      describe "con RUC" do
+        class UserWithOptionsOnlyRUC < SuperModel::Base
+          extend IdEcuador::ModelAdditions
+          validates_id :identificacion, only: :ruc
+        end
+        it "debería decir que es válido" do
+          user = UserWithOptionsOnlyRUC.new identificacion: "1104680135001"
+          user.valid?.should be_true
+        end
+        it "debería decir que es inválido" do
+          user = UserWithOptionsOnlyRUC.new identificacion: "1104680135"
+          user.valid?.should be_false
+          user.errors[:identificacion].should include("Tipo de identificación no permitido")
+        end
+      end
     end
   end
 

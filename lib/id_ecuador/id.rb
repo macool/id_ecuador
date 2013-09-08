@@ -3,7 +3,7 @@
 module IdEcuador
   class Id
     
-    attr_reader :errors, :tipo_id, :codigo_provincia
+    attr_reader :errors, :tipo_id, :codigo_provincia, :tipo_id_sym
     
     def initialize(id="", options={})
       @id = id.to_s
@@ -59,15 +59,19 @@ module IdEcuador
       elsif @third_digit < 6
         if @id.length > 10
           @tipo_id = "RUC Persona natural"
+          @tipo_id_sym = :ruc
         else
           @tipo_id = "Cédula Persona natural"
+          @tipo_id_sym = :cedula
         end
         validate_last_digits_for_persona_natural and evaluate_sums_for_persona_natural!
       elsif @third_digit == 6
         @tipo_id = "Sociedad pública"
+        @tipo_id_sym = :sociedad_publica
         validate_last_digits_for_sociedad_publica and evaluate_sums_for_sociedad_publica!
       elsif @third_digit == 9
         @tipo_id = "Sociedad privada o extranjera"
+        @tipo_id_sym = :sociedad_privada
         validate_last_digits_for_sociedad_privada and evaluate_sums_for_sociedad_privada!
       end
       return true
