@@ -148,13 +148,3 @@ module IdEcuador
     end
   end
 end
-
-
-
-
-
-
-
-
-
-
