@@ -13,6 +13,6 @@
 * Agregado `factory_girl` para testing
 * Tests refactored
 
-## v0.0.1-beta.2
+## v0.0.1.beta.2
 
 * Modificado *Railtie*. Había un error de sintaxis. Reemplazado `intializer` por `initializer`
