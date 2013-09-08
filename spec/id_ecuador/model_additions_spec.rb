@@ -18,10 +18,10 @@ describe IdEcuador::ModelAdditions do
 
     describe "valida el ID de un usuario antes de guardarlo a la base de datos" do
       it "debería decir que es válido" do
-        User.new(identificacion: "1104680135").valid?.should be_true
+        FactoryGirl.build(:user).valid?.should be_true
       end
       it "debería decir que es inválido" do
-        user = User.new(identificacion: "1104680134")
+        user = FactoryGirl.build(:user_invalid)
         user.save.should be_false
         user.errors[:identificacion].should include("ID inválida")
       end
@@ -52,12 +52,12 @@ describe IdEcuador::ModelAdditions do
 
     describe "debe agregar métodos al atributo" do
       it "debe agregar método `identificacion_tipo_id`" do
-        user = User.new(identificacion: "1104680135")
+        user = FactoryGirl.build(:user)
         user.respond_to?(:identificacion_tipo_id).should be_true
         user.identificacion_tipo_id.should eq("Cédula Persona natural")
       end
       it "debe agregar método `identificacion_codigo_provincia`" do
-        user = User.new(identificacion: "1104680135")
+        user = FactoryGirl.build(:user)
         user.respond_to?(:identificacion_codigo_provincia).should be_true
         user.identificacion_codigo_provincia.should eq(11)
       end
@@ -77,6 +77,7 @@ describe IdEcuador::ModelAdditions do
         user.errors[:identificacion].should include("No puede quedar en blanco")
       end
     end
+    
     describe "specify message" do
       class UserWithOptionsMessage < SuperModel::Base
         extend IdEcuador::ModelAdditions
@@ -89,7 +90,7 @@ describe IdEcuador::ModelAdditions do
         user.errors[:identificacion].should eq(["Not valid!"])
       end
       it "debería mostrar 'Not valid!' como error con cédula" do
-        user = UserWithOptionsMessage.new identificacion: "1104680134"
+        user = UserWithOptionsMessage.new FactoryGirl.attributes_for(:user_invalid)
         user.valid?.should be_false
         user.errors[:identificacion].should eq(["Not valid!"])
       end
@@ -102,11 +103,11 @@ describe IdEcuador::ModelAdditions do
         end
 
         it "debería decir que es válido" do
-          user = UserWithOptionsOnlyCedula.new identificacion: "1104680135"
+          user = UserWithOptionsOnlyCedula.new FactoryGirl.attributes_for(:user)
           user.valid?.should be_true
         end
         it "debería decir que es inválido" do
-          user = UserWithOptionsOnlyCedula.new identificacion: "1104680135001"
+          user = UserWithOptionsOnlyCedula.new FactoryGirl.attributes_for(:user_ruc)
           user.valid?.should be_false
           user.errors[:identificacion].should include("Tipo de identificación no permitido")
         end
@@ -117,11 +118,11 @@ describe IdEcuador::ModelAdditions do
           validates_id :identificacion, only: :ruc
         end
         it "debería decir que es válido" do
-          user = UserWithOptionsOnlyRUC.new identificacion: "1104680135001"
+          user = UserWithOptionsOnlyRUC.new FactoryGirl.attributes_for(:user_ruc)
           user.valid?.should be_true
         end
         it "debería decir que es inválido" do
-          user = UserWithOptionsOnlyRUC.new identificacion: "1104680135"
+          user = UserWithOptionsOnlyRUC.new FactoryGirl.attributes_for(:user)
           user.valid?.should be_false
           user.errors[:identificacion].should include("Tipo de identificación no permitido")
         end

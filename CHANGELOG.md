@@ -9,3 +9,5 @@
 ## v0.0.1.beta
 
 * Agregado `IdEcuador.new` como alias de `IdEcuador::Id.new`
+* Agregado `factory_girl` para testing
+* Tests refactored
