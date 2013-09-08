@@ -2,6 +2,18 @@
 
 module IdEcuador
   # Clase que va a analizar la cédula. Recibe un id y unas opciones
+  # @attr_reader [Array] errors Los errores que tiene el ID. Array vacío si es un ID válido
+  # @attr_reader [String] tipo_id El tipo de identificación. Puede ser:
+  #   - Cédula Persona natural
+  #   - RUC Persona natural
+  #   - Sociedad pública
+  #   - Sociedad privada o extranjera
+  # @attr_reader [Fixnum] codigo_provincia El código de la provincia del ID ingresado
+  # @attr_reader [Symbol] tipo_id_sym El tipo de identificación en símbolo. Puede ser:
+  #   - :ruc
+  #   - :cedula
+  #   - :sociedad_publica
+  #   - :sociedad_privada
   class Id
     
     attr_reader :errors, :tipo_id, :codigo_provincia, :tipo_id_sym
@@ -19,15 +31,21 @@ module IdEcuador
       @options = defaults.merge options
       validate! if @options[:auto_validate]
     end
+
+    # @return [Boolean] Si es un ID válido o no
     def valid?
       validate! unless already_validated
       @errors.empty?
     end
+
+    # @return [self] Método que valida
     def validate!
       @already_validated = true
       validate_length and evaluate_province_code and evaluate_third_digit
       self
     end
+
+    # @return [Boolean] Si el ID ya ha sido validado
     def already_validated
       !!@already_validated
     end
