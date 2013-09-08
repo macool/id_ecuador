@@ -2,44 +2,39 @@
 
 Gema para validar la cédula o ruc de Ecuador
 
+La clase `Id` dentro del módulo `IdEcuador` permite, a partir de un número de identificación, saber:
+
+- Si el número de identificación es válido
+- El tipo de identificación, que puede ser:
+    - Cédula
+    - RUC personas naturales
+    - RUC empresa sector público
+    - RUC empresa privada o extranjera
+
 ## Status
 
 [![Build Status](https://travis-ci.org/macool/id_ecuador.png?branch=master)](https://travis-ci.org/macool/id_ecuador)
 [![Gem Version](https://badge.fury.io/rb/id_ecuador.png)](http://badge.fury.io/rb/id_ecuador)
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'id_ecuador'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install id_ecuador
 
 ## Usage
 
 ```ruby
 require "id_ecuador"
 
-cedula = IdEcuador::Id.new "1104680135"
+cedula = IdEcuador.new "1104680135"
 cedula.valid?           # => true
 cedula.tipo_id          # => "Cédula Persona natural"
 cedula.tipo_id_sym      # => :cedula
 cedula.codigo_provincia # => 11
 
-cedula_invalida = IdEcuador::Id.new "1105680134"
+cedula_invalida = IdEcuador.new "1105680134"
 cedula_invalida.errors # => ["ID inválida"]
 ```
 
 No validar automáticamente:
 
 ```ruby
-cedula = IdEcuador::Id.new "1104680135", auto_validate: false
+cedula = IdEcuador.new "1104680135", auto_validate: false
 cedula.validate!.valid?
 ```
 
@@ -51,7 +46,17 @@ class User < ActiveRecord::Base
 end
 ```
 
-Con opciones:
+### Con opciones:
+
+Las opciones por defecto son:
+
+```ruby
+{
+  :allow_blank => true,   # No levanta error si el atributo es nil o ""
+  :message => nil,        # Utilizar mensajes por defecto de la gema
+  :only => []             # Permitir todos los tipos de ID
+}
+```
 
 ```ruby
 class User < ActiveRecord::Base
@@ -68,6 +73,20 @@ user.identificacion_tipo_id            # => "RUC Persona natural"
 user.identificacion_tipo_id_sym        # => :ruc
 user.identificacion_codigo_provincia   # => 11
 ```
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+    gem 'id_ecuador'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install id_ecuador
 
 ## Documentación
 
