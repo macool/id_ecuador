@@ -67,6 +67,11 @@ user.identificacion_tipo_id            # => "RUC Persona natural"
 user.identificacion_codigo_provincia   # => 11
 ```
 
+## TODO
+
+- [ ] Documentar
+- [ ] Escribir la documentación en un solo idioma
+
 ## Contributing
 
 1. Fork it
