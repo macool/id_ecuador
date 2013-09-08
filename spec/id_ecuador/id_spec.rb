@@ -5,12 +5,12 @@ describe IdEcuador::Id do
   
   describe "interfaz de la clase" do
     it "debe llamar automáticamente al método validate!" do
-      id = IdEcuador::Id.new("1104680135")
+      id = IdEcuador::Id.new CEDULA_VALIDA
       id.send(:already_validated).should be_true
     end
     it "no debe llamar automáticamente al método validate!" do
       IdEcuador::Id.any_instance.stub(:validate!)
-      id = IdEcuador::Id.new("1104680135", validate: false)
+      id = IdEcuador::Id.new CEDULA_VALIDA, validate: false
       id.send(:already_validated).should be_false
     end
   end
@@ -27,11 +27,11 @@ describe IdEcuador::Id do
         id.errors.should include(@error)
       end
       it "no debería incluir problemas de longitud con 10 caracteres" do
-        id = IdEcuador::Id.new "1104680135"
+        id = IdEcuador::Id.new CEDULA_VALIDA
         id.errors.should_not include(@error)
       end
       it "no debería incluir problemas de longitud con 13 caracteres" do
-        id = IdEcuador::Id.new "1104680135001"
+        id = IdEcuador::Id.new RUC_VALIDO
         id.errors.should_not include(@error)
       end
       it "debería fallar con longitud mayor a 13 caracteres" do
@@ -47,7 +47,7 @@ describe IdEcuador::Id do
         id.errors.should include("Código de provincia incorrecto")
       end
       it "debería decir que el código de la provincia es 11" do
-        id = IdEcuador::Id.new "1104680135"
+        id = IdEcuador::Id.new CEDULA_VALIDA
         id.codigo_provincia.should eq(11)
       end
     end
@@ -74,11 +74,11 @@ describe IdEcuador::Id do
       #   6    -> sociedades públicas
       #   0..5 -> personas naturales
       it "debería decir que es una persona natural" do
-        id = IdEcuador::Id.new "1104680135"
+        id = IdEcuador::Id.new CEDULA_VALIDA
         id.tipo_id.should eq("Cédula Persona natural")
       end
       it "debería decir que es el RUC de una persona natural" do
-        id = IdEcuador::Id.new "1104680135001"
+        id = IdEcuador::Id.new RUC_VALIDO
         id.tipo_id.should eq("RUC Persona natural")
       end
       it "debería decir que es una sociedad pública" do
@@ -93,10 +93,10 @@ describe IdEcuador::Id do
   
     describe "probar con algunas cédulas" do
       it "debería decir que esta cédula es válida" do
-        IdEcuador::Id.new("1104680135").valid?.should be_true
+        IdEcuador::Id.new(CEDULA_VALIDA).valid?.should be_true
       end
       it "debería decir que esta cédula es inválida" do
-        IdEcuador::Id.new("1104680134").valid?.should be_false
+        IdEcuador::Id.new(CEDULA_INVALIDA).valid?.should be_false
       end
       it "debería decir que estas cédulas son válidas" do
         ["1104077209",
