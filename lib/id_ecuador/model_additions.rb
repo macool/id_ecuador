@@ -69,7 +69,7 @@ module IdEcuador
             end
           end
           # for options:
-          unless options[:only].empty?
+          if not options[:only].empty? and not send(:"#{attribute}").blank?
             unless options[:only].include?(send(:"#{attribute}_id_validator").tipo_id_sym)
               # si está especificado <tt>options[:only]</tt>, validar que el tipo de ID esté permitido
               errors.add attribute.to_sym, (options[:message] or "Tipo de identificación no permitido")

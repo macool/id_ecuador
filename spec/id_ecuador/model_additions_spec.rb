@@ -126,6 +126,10 @@ describe IdEcuador::ModelAdditions do
           user = UserWithOptionsOnlyCedula.new FactoryGirl.attributes_for(:user)
           user.valid?.should be_true
         end
+        it "debería decir que es válido con blank" do
+          user = UserWithOptionsOnlyCedula.new identificacion: nil
+          user.valid?.should be_true
+        end
         it "debería decir que es inválido" do
           user = UserWithOptionsOnlyCedula.new FactoryGirl.attributes_for(:user_ruc)
           user.valid?.should be_false
@@ -145,6 +149,25 @@ describe IdEcuador::ModelAdditions do
           user = UserWithOptionsOnlyRUC.new FactoryGirl.attributes_for(:user)
           user.valid?.should be_false
           user.errors[:identificacion].should include("Tipo de identificación no permitido")
+        end
+      end
+      describe "permitir RUC y cédula sin blank" do
+        class UserWithRucCiNotBlank < SuperModel::Base
+          extend IdEcuador::ModelAdditions
+          validates_id :identificacion, only: [:ruc, :cedula], allow_blank: false
+        end
+
+        it "Con cédula" do
+          user = UserWithRucCiNotBlank.new FactoryGirl.attributes_for(:user)
+          user.valid?.should be_true
+        end
+        it "Con ruc" do
+          user = UserWithRucCiNotBlank.new FactoryGirl.attributes_for(:user_ruc)
+          user.valid?.should be_true
+        end
+        it "Con ID nil" do
+          user = UserWithRucCiNotBlank.new identificacion: nil
+          user.valid?.should be_false
         end
       end
     end
