@@ -1,4 +1,5 @@
 # IdEcuador
+[![Build Status](https://travis-ci.org/macool/id_ecuador.png?branch=master)](https://travis-ci.org/macool/id_ecuador)
 
 Gema para validar la cédula o ruc de Ecuador
 
