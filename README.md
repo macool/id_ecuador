@@ -29,6 +29,7 @@ require "id_ecuador"
 cedula = IdEcuador::Id.new "1104680135"
 cedula.valid?           # => true
 cedula.tipo_id          # => "Cédula Persona natural"
+cedula.tipo_id_sym      # => :cedula
 cedula.codigo_provincia # => 11
 
 cedula_invalida = IdEcuador::Id.new "1105680134"
