@@ -3,17 +3,21 @@
 module IdEcuador
   # Clase que va a analizar la cédula. Recibe un id y unas opciones
   # @attr_reader [Array] errors Los errores que tiene el ID. Array vacío si es un ID válido
+  #
   # @attr_reader [String] tipo_id El tipo de identificación. Puede ser:
-  #   - Cédula Persona natural
-  #   - RUC Persona natural
-  #   - Sociedad pública
-  #   - Sociedad privada o extranjera
+  #   - "Cédula Persona natural"
+  #   - "RUC Persona natural"
+  #   - "Sociedad pública"
+  #   - "Sociedad privada o extranjera"
+  #
   # @attr_reader [Fixnum] codigo_provincia El código de la provincia del ID ingresado
+  #
   # @attr_reader [Symbol] tipo_id_sym El tipo de identificación en símbolo. Puede ser:
   #   - :ruc
   #   - :cedula
   #   - :sociedad_publica
   #   - :sociedad_privada
+  #
   class Id
     
     attr_reader :errors, :tipo_id, :codigo_provincia, :tipo_id_sym
