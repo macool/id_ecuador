@@ -16,3 +16,8 @@
 ## v0.0.1.beta.2
 
 * Modificado *Railtie*. Había un error de sintaxis. Reemplazado `intializer` por `initializer`
+
+## v0.0.1
+
+* Primera versión estable
+* Pequeños arreglos de bugs en la implementación para Rails
