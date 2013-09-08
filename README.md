@@ -64,6 +64,7 @@ Ejemplo API Rails:
 user = User.new identificacion: "110468135001"
 user.identificacion_id_validator.class # => IdEcuador::Id
 user.identificacion_tipo_id            # => "RUC Persona natural"
+user.identificacion_tipo_id_sym        # => :ruc
 user.identificacion_codigo_provincia   # => 11
 ```
 

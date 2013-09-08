@@ -40,10 +40,13 @@ module IdEcuador
         end
       EVAL
 
-      # extensiones para .tipo_id y .codigo_provincia
+      # extensiones para #tipo_id, #tipo_id_sym y #codigo_provincia
       class_eval <<-EVAL
         def #{attribute}_tipo_id
           #{attribute}_id_validator.tipo_id
+        end
+        def #{attribute}_tipo_id_sym
+          #{attribute}_id_validator.tipo_id_sym
         end
         def #{attribute}_codigo_provincia
           #{attribute}_id_validator.codigo_provincia
