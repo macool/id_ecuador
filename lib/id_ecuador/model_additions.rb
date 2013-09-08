@@ -1,6 +1,11 @@
 module IdEcuador
   module ModelAdditions
-    def validates_id(attribute)
+    def validates_id(attribute, options={})
+      defaults = {
+        allow_blank: true,
+        message: nil
+      }
+      options = defaults.merge options
 
       # poner métodos:
 
@@ -26,9 +31,13 @@ module IdEcuador
       EVAL
 
       validate do
-        unless send(:"#{attribute}_id_validator").valid?
-          send(:"#{attribute}_id_validator").errors.each do |error|
-            errors.add attribute.to_sym, error
+        if not options[:allow_blank] and send(:"#{attribute}").blank?
+          errors.add attribute.to_sym, options[:message] or "No puede quedar en blanco"
+        else
+          if not send(:"#{attribute}").blank? and not send(:"#{attribute}_id_validator").valid?
+            send(:"#{attribute}_id_validator").errors.each do |error|
+              errors.add attribute.to_sym, error
+            end
           end
         end
       end

@@ -5,7 +5,7 @@ module IdEcuador
     
     attr_reader :errors, :tipo_id, :codigo_provincia
     
-    def initialize(id, options={})
+    def initialize(id="", options={})
       @id = id.to_s
       @errors = []
       
