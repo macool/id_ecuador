@@ -1,10 +1,14 @@
 # encoding: utf-8
 
 module IdEcuador
+  # Clase que va a analizar la cédula. Recibe un id y unas opciones
   class Id
     
     attr_reader :errors, :tipo_id, :codigo_provincia, :tipo_id_sym
     
+    # @param [String] id El ID que se va a analizar
+    # @param [Hash] options Las opciones
+    # @option options [Boolean] :auto_validate Validar automáticamente el ID al instanciar. <tt>true</tt> por defecto
     def initialize(id="", options={})
       @id = id.to_s
       @errors = []
