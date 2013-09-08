@@ -16,6 +16,26 @@ describe IdEcuador::ModelAdditions do
       user.save.should be_true
     end
 
+    describe "cache on #attribute_id_validator" do
+      it "debería decir que el id del objeto que retorna el método es el mismo mientras la identificación no cambie" do
+        user = FactoryGirl.build :user
+        id = user.identificacion_id_validator.object_id
+        user.identificacion_id_validator.object_id.should eq(id)
+      end
+      it "no debería expirar el caché si se reasigna el mismo ID" do
+        user = FactoryGirl.build :user
+        id = user.identificacion_id_validator.object_id
+        user.identificacion = FactoryGirl.attributes_for(:user)[:identificacion]
+        user.identificacion_id_validator.object_id.should eq(id)
+      end
+      it "debería expirar el caché si se reasigna otro ID" do
+        user = FactoryGirl.build :user
+        id = user.identificacion_id_validator.object_id
+        user.identificacion = FactoryGirl.attributes_for(:user_invalid)[:identificacion]
+        user.identificacion_id_validator.object_id.should_not eq(id)
+      end
+    end
+
     describe "valida el ID de un usuario antes de guardarlo a la base de datos" do
       it "debería decir que es válido" do
         FactoryGirl.build(:user).valid?.should be_true
@@ -77,7 +97,7 @@ describe IdEcuador::ModelAdditions do
         user.errors[:identificacion].should include("No puede quedar en blanco")
       end
     end
-    
+
     describe "specify message" do
       class UserWithOptionsMessage < SuperModel::Base
         extend IdEcuador::ModelAdditions
