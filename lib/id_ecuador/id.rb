@@ -22,6 +22,7 @@ module IdEcuador
     def validate!
       @already_validated = true
       validate_length and evaluate_province_code and evaluate_third_digit
+      self
     end
     def already_validated
       !!@already_validated
