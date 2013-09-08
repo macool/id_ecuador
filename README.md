@@ -36,6 +36,7 @@ cedula_invalida.errors # => ["ID inválida"]
 ```
 
 No validar automáticamente:
+
 ```ruby
 cedula = IdEcuador::Id.new "1104680135", auto_validate: false
 cedula.validate!.valid?
@@ -50,6 +51,7 @@ end
 ```
 
 Con opciones:
+
 ```ruby
 class User < ActiveRecord::Base
   validates_id :identificacion, allow_blank: false, message: "Cédula inválida", only: [:cedula, :ruc]
@@ -57,6 +59,7 @@ end
 ```
 
 Ejemplo API Rails:
+
 ```ruby
 user = User.new identificacion: "110468135001"
 user.identificacion_id_validator.class # => IdEcuador::Id
