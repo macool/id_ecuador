@@ -67,6 +67,10 @@ user.identificacion_tipo_id            # => "RUC Persona natural"
 user.identificacion_codigo_provincia   # => 11
 ```
 
+## Documentación
+
+[rubydoc](http://rubydoc.info/github/macool/id_ecuador/master/frames)
+
 ## TODO
 
 - [ ] Documentar
