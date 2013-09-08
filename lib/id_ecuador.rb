@@ -8,12 +8,12 @@ require "id_ecuador/railtie" if defined? Rails
 # @author macool <a@macool.me>
 #
 # Contiene:
-#   Clases:
-#   * <tt>Id</tt>
+# Clases:
+# * <tt>Id</tt>
 #
-#   Módulos:
-#   * <tt>ModelAdditions</tt>
-#   * <tt>Railtie</tt>
+# Módulos:
+# * <tt>ModelAdditions</tt>
+# * <tt>Railtie</tt>
 module IdEcuador
 
   # Alias al método #new de la clase IdEcuador::Id
