@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["a@macool.me"]
   spec.description   = %q{Validate Ecuador's CI and RUC}
   spec.summary       = %q{Gem to validate Ecuador's CI and RUC}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/macool/id_ecuador"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
