@@ -9,8 +9,7 @@ describe IdEcuador::Id do
       id.send(:already_validated).should be_true
     end
     it "no debe llamar automáticamente al método validate!" do
-      IdEcuador::Id.any_instance.stub(:validate!)
-      id = IdEcuador::Id.new CEDULA_VALIDA, validate: false
+      id = IdEcuador::Id.new CEDULA_VALIDA, auto_validate: false
       id.send(:already_validated).should be_false
     end
   end
