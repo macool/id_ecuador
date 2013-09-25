@@ -22,6 +22,7 @@ La clase `Id` dentro del módulo `IdEcuador` permite, a partir de un número de 
 require "id_ecuador"
 
 cedula = IdEcuador.new "1104680135"
+cedula.id               # => "1104680135"
 cedula.valid?           # => true
 cedula.tipo_id          # => "Cédula Persona natural"
 cedula.tipo_id_sym      # => :cedula
@@ -68,6 +69,7 @@ Ejemplo API Rails:
 
 ```ruby
 user = User.new identificacion: "110468135001"
+user.idenfiticacion                    # => "110468135001"
 user.identificacion_id_validator.class # => IdEcuador::Id
 user.identificacion_tipo_id            # => "RUC Persona natural"
 user.identificacion_tipo_id_sym        # => :ruc
