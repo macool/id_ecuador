@@ -2,6 +2,7 @@
 
 module IdEcuador
   # Clase que va a analizar la cédula. Recibe un id y unas opciones
+  # @attr_reader [String] id Número de ID
   # @attr_reader [Array] errors Los errores que tiene el ID. Array vacío si es un ID válido
   #
   # @attr_reader [String] tipo_id El tipo de identificación. Puede ser:
@@ -10,30 +11,37 @@ module IdEcuador
   #   - "Sociedad pública"
   #   - "Sociedad privada o extranjera"
   #
-  # @attr_reader [Fixnum] codigo_provincia El código de la provincia del ID ingresado
-  #
   # @attr_reader [Symbol] tipo_id_sym El tipo de identificación en símbolo. Puede ser:
   #   - :ruc
   #   - :cedula
   #   - :sociedad_publica
   #   - :sociedad_privada
   #
+  # @attr_reader [Fixnum] codigo_provincia El código de la provincia del ID ingresado
   class Id
     
-    attr_reader :errors, :tipo_id, :codigo_provincia, :tipo_id_sym
+    attr_reader :id, :errors, :tipo_id, :tipo_id_sym, :codigo_provincia
     
     # @param [String] id El ID que se va a analizar
     # @param [Hash] options Las opciones
     # @option options [Boolean] :auto_validate Validar automáticamente el ID al instanciar. <tt>true</tt> por defecto
     def initialize(id="", options={})
       @id = id.to_s
-      @errors = []
       
       defaults = {
         auto_validate: true
       }
       @options = defaults.merge options
-      validate! if @options[:auto_validate]
+      evaluate!
+    end
+
+    # Setter para el ID
+    # @param [String] new_id Nuevo ID que se va a analizar
+    # @return [String] Nuevo ID
+    def id=(new_id)
+      @id = new_id.to_s
+      evaluate!
+      new_id
     end
 
     # @return [Boolean] Si es un ID válido o no
@@ -55,6 +63,13 @@ module IdEcuador
     end
     
   protected
+    # Método llamado después de #initialize y #id=
+    # Se encarga de correr la validación si options[:auto_validate] es true
+    def evaluate!
+      @errors = []
+      validate! if @options[:auto_validate]
+      self
+    end
     def validate_length
       if [10, 13].include?(@id.length)
         true

@@ -12,6 +12,23 @@ describe IdEcuador::Id do
       id = IdEcuador::Id.new CEDULA_VALIDA, auto_validate: false
       id.send(:already_validated).should be_false
     end
+    it "debe volver a correr la validación si cambia el ID con el método #id= y options[:auto_validate] está puesto" do
+      id = IdEcuador::Id.new
+      id.id = CEDULA_VALIDA
+      id.send(:already_validated).should be_true
+    end
+    it "no debe correr la validación si cambia el ID y options[:auto_validate] es false" do
+      id = IdEcuador::Id.new "", auto_validate: false
+      id.id = CEDULA_VALIDA
+      id.send(:already_validated).should be_false
+    end
+    it "el método #id= no debe dañar el resto de la funcionalidad" do
+      id = IdEcuador::Id.new ""
+      id.id = CEDULA_VALIDA
+      id.valid?.should be_true
+      id.id = CEDULA_INVALIDA
+      id.valid?.should be_false
+    end
   end
   
   describe "funcionalidad de la clase" do
