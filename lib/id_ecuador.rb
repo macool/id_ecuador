@@ -20,6 +20,6 @@ module IdEcuador
   # @example Instanciar ID
   #   IdEcuador.new("1104680135").class #=> IdEcuador::Id
   def self.new(*args)
-    IdEcuador::Id.new(*args)
+    Id.new(*args)
   end
 end
