@@ -22,9 +22,7 @@ module IdEcuador
       options = defaults.merge options
 
       # transform options[:only] to array if it's not:
-      unless options[:only].class == Array
-        options[:only] = [options[:only]]
-      end
+      options[:only] = Array options[:only]
 
 
       # poner métodos:
