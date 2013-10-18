@@ -19,7 +19,7 @@
 * Primera versión estable
 * Pequeños arreglos de bugs en la implementación para Rails
 
-## v0.0.2
+## v0.0.2.alpha
 
 * Agregados los métodos `id` y `id=` a la clase `IdEcuador::Id`
 * Refactorizado el método `initialize` y `id=` para que ambos utilicen un nuevo método `evaluate!` y evitar duplicación de código
