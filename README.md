@@ -1,5 +1,9 @@
 # IdEcuador
 
+[![Gem Version](https://badge.fury.io/rb/id_ecuador.png)](http://badge.fury.io/rb/id_ecuador)
+[![Build Status](https://travis-ci.org/macool/id_ecuador.png?branch=master)](https://travis-ci.org/macool/id_ecuador)
+[![Code Climate](https://codeclimate.com/github/macool/id_ecuador.png)](https://codeclimate.com/github/macool/id_ecuador)
+
 Gema para validar la cédula o ruc de Ecuador
 
 La clase `Id` dentro del módulo `IdEcuador` permite, a partir de un número de identificación, saber:
@@ -10,12 +14,6 @@ La clase `Id` dentro del módulo `IdEcuador` permite, a partir de un número de 
     - RUC personas naturales
     - RUC empresa sector público
     - RUC empresa privada o extranjera
-
-## Status
-
-[![Build Status](https://travis-ci.org/macool/id_ecuador.png?branch=master)](https://travis-ci.org/macool/id_ecuador)
-[![Gem Version](https://badge.fury.io/rb/id_ecuador.png)](http://badge.fury.io/rb/id_ecuador)
-[![Code Climate](https://codeclimate.com/github/macool/id_ecuador.png)](https://codeclimate.com/github/macool/id_ecuador)
 
 ## Usage
 
