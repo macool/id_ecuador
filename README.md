@@ -1,5 +1,9 @@
 # IdEcuador
 
+## ⚠️
+
+This gem has not been maintained for some time. Pull requests are welcome.
+
 [![Gem Version](https://badge.fury.io/rb/id_ecuador.png)](http://badge.fury.io/rb/id_ecuador)
 [![Build Status](https://travis-ci.org/macool/id_ecuador.png?branch=master)](https://travis-ci.org/macool/id_ecuador)
 [![Code Climate](https://codeclimate.com/github/macool/id_ecuador.png)](https://codeclimate.com/github/macool/id_ecuador)
