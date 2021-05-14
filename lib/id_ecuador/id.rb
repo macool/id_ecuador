@@ -81,7 +81,7 @@ module IdEcuador
     end
 
     def evaluate_province_code
-      provinces = 22
+      provinces = 24
       code = @id[0,2].to_i
       if code < 1 || code > provinces
         @errors << "Código de provincia incorrecto"
