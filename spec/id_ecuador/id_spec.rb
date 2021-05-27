@@ -64,9 +64,9 @@ describe IdEcuador::Id do
     end
 
     describe "código de provincia" do
-      # Hay 22 provincias. Los dos primeros dígitos son el código de la provincia. Debe ser mayor a 0 y menor a 22
+      # Hay 24 provincias. Los dos primeros dígitos son el código de la provincia. Debe ser mayor a 0 y menor a 24
       it "debería fallar con código de provincia 23" do
-        id = IdEcuador::Id.new "2304680135"
+        id = IdEcuador::Id.new "2504680135"
         expect(id.errors).to include("Código de provincia incorrecto")
       end
 
